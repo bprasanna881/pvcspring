@@ -1,0 +1,27 @@
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+  name: my-springboot-deployment
+  spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: springboot-app
+  template:
+    metadata:
+      labels:
+        app: springboot-app
+    spec:
+      containers:
+      - name: my-springboot-app
+        image: acrk8s123.azurecr.io/bprasanna881/spring-helm:#{Build.BuildId}#
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8085
+        volumeMounts:
+            - mountPath: /test-pd
+              name: test-volume
+      volumes:
+      - name: test-volume
+        persistentVolumeClaim:
+          claimName: azure-managed-disk
