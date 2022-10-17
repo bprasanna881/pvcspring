@@ -18,6 +18,11 @@
         imagePullPolicy: Always
         ports:
         - containerPort: 8085
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: "@Aa123456"
         volumeMounts:
             - mountPath: /test-pd
               name: test-volume
